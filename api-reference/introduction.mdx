@@ -1,33 +1,133 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API Introduction"
+description: "Omni Photo Studio API - Integrate AI image generation into your applications"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Getting Started
 
-## Welcome
-
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+Welcome to the Omni Photo Studio API. Our RESTful API allows you to integrate AI-powered image generation capabilities into your applications, websites, and services. Generate images, enhance photos, and manage content programmatically.
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+The Omni Photo Studio API uses API keys for authentication. You can manage your API keys in your [Dashboard](https://omniphotostudio.com/dashboard/api-keys).
+
+Include your API key in requests by adding it as an `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer YOUR_API_KEY" https://api.omniphotostudio.com/v1/generate
+```
+
+## Base URL
+
+All API requests should be made to:
+
+```
+https://api.omniphotostudio.com/v1
+```
+
+## Rate Limits
+
+API requests are limited based on your subscription plan:
+
+| Plan | Requests per Minute | Requests per Day |
+| --- | --- | --- |
+| Free | 10 | 100 |
+| Pro | 100 | 10,000 |
+| Enterprise | 1,000 | Unlimited |
+
+Rate limit headers are included in all responses:
+
+| Header | Description |
+| --- | --- |
+| `X-RateLimit-Limit` | The number of allowed requests in the current period |
+| `X-RateLimit-Remaining` | The number of remaining requests in the current period |
+| `X-RateLimit-Reset` | The time at which the current rate limit window resets |
+
+## API Endpoints
+
+### Image Generation
+- **POST** `/generate/text-to-image` - Generate images from text prompts
+- **POST** `/generate/image-to-image` - Transform existing images
+- **POST** `/generate/sketch-to-image` - Convert sketches to images
+- **POST** `/generate/inpainting` - Fill or edit image areas
+- **POST** `/generate/upscale` - Enhance image quality
+
+### User Management
+- **GET** `/user/profile` - Get user profile information
+- **PUT** `/user/profile` - Update user profile
+- **GET** `/user/usage` - Get usage statistics
+- **GET** `/user/subscription` - Get subscription details
+
+### Content Management
+- **GET** `/content/history` - Get generation history
+- **GET** `/content/saved` - Get saved images
+- **POST** `/content/save` - Save an image
+- **DELETE** `/content/delete` - Delete an image
+
+## Response Format
+
+All API responses follow a consistent JSON format:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
+{
+  "success": true,
+  "data": {
+    // Response data
+  },
+  "meta": {
+    "request_id": "req_123456789",
+    "timestamp": "2024-01-01T00:00:00Z"
   }
-]
+}
 ```
+
+## Errors
+
+Our API uses conventional HTTP response codes to indicate the success or failure of an API request.
+
+| Code | Description |
+| --- | --- |
+| 200 | Success |
+| 400 | Bad Request - Invalid parameters |
+| 401 | Unauthorized - Invalid API key |
+| 403 | Forbidden - Insufficient permissions |
+| 404 | Not Found - Resource not found |
+| 429 | Too Many Requests - Rate limit exceeded |
+| 500 | Internal Server Error |
+
+### Error Response Format
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "invalid_request",
+    "message": "The request was invalid",
+    "details": "Additional error details"
+  },
+  "meta": {
+    "request_id": "req_123456789",
+    "timestamp": "2024-01-01T00:00:00Z"
+  }
+}
+```
+
+## SDKs and Libraries
+
+We provide official SDKs for popular programming languages:
+
+- **JavaScript/Node.js**: `npm install omniphotostudio`
+- **Python**: `pip install omniphotostudio`
+- **PHP**: `composer require omniphotostudio/php-sdk`
+- **Go**: `go get github.com/omniphotostudio/go-sdk`
+
+## Webhooks
+
+Configure webhooks to receive notifications about generation completion, subscription changes, and other events. Webhook endpoints must be HTTPS and respond with a 200 status code.
+
+## Support
+
+For API support and questions:
+- **Documentation**: [docs.omniphotostudio.com](https://docs.omniphotostudio.com)
+- **Email**: api-support@omniphotostudio.com
+- **Discord**: [Join our developer community](https://discord.gg/omniphotostudio)

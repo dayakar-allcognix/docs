@@ -1,0 +1,169 @@
+---
+title: "Generate Image"
+description: "Generate images from text prompts using AI"
+---
+
+## Overview
+
+The Text to Image generation endpoint allows you to create high-quality images from text descriptions using our advanced AI models.
+
+## Endpoint
+
+```http
+POST /v1/generate/text-to-image
+```
+
+## Request Body
+
+<ParamField path="prompt" type="string" required>
+  The text description of the image you want to generate. Be specific and descriptive for best results.
+</ParamField>
+
+<ParamField path="model" type="string">
+  The AI model to use for generation. Options: `omni-t2i-v1`, `omni-t2i-v2`. Default: `omni-t2i-v2`
+</ParamField>
+
+<ParamField path="width" type="integer">
+  Width of the generated image in pixels. Must be between 512 and 2048. Default: 1024
+</ParamField>
+
+<ParamField path="height" type="integer">
+  Height of the generated image in pixels. Must be between 512 and 2048. Default: 1024
+</ParamField>
+
+<ParamField path="style" type="string">
+  Artistic style for the image. Options: `realistic`, `artistic`, `minimalist`, `cinematic`. Default: `realistic`
+</ParamField>
+
+<ParamField path="quality" type="string">
+  Quality level for generation. Options: `standard`, `high`, `ultra`. Default: `high`
+</ParamField>
+
+<ParamField path="num_images" type="integer">
+  Number of images to generate (1-4). Default: 1
+</ParamField>
+
+## Example Request
+
+```bash
+curl -X POST https://api.omniphotostudio.com/v1/generate/text-to-image \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "A serene mountain landscape at sunset with a crystal clear lake reflecting the peaks",
+    "model": "omni-t2i-v2",
+    "width": 1024,
+    "height": 1024,
+    "style": "realistic",
+    "quality": "high",
+    "num_images": 1
+  }'
+```
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Contains the generation results
+</ResponseField>
+
+<ResponseField name="data.images" type="array">
+  Array of generated image objects
+</ResponseField>
+
+<ResponseField name="data.images[].id" type="string">
+  Unique identifier for the generated image
+</ResponseField>
+
+<ResponseField name="data.images[].url" type="string">
+  URL to download the generated image
+</ResponseField>
+
+<ResponseField name="data.images[].width" type="integer">
+  Width of the generated image
+</ResponseField>
+
+<ResponseField name="data.images[].height" type="integer">
+  Height of the generated image
+</ResponseField>
+
+<ResponseField name="data.images[].format" type="string">
+  Image format (jpg, png, webp)
+</ResponseField>
+
+<ResponseField name="data.usage" type="object">
+  Information about credits used
+</ResponseField>
+
+<ResponseField name="data.usage.credits_used" type="integer">
+  Number of credits consumed for this generation
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "images": [
+      {
+        "id": "img_123456789",
+        "url": "https://cdn.omniphotostudio.com/images/img_123456789.jpg",
+        "width": 1024,
+        "height": 1024,
+        "format": "jpg"
+      }
+    ],
+    "usage": {
+      "credits_used": 1
+    }
+  },
+  "meta": {
+    "request_id": "req_123456789",
+    "timestamp": "2024-01-01T00:00:00Z"
+  }
+}
+```
+
+## Error Responses
+
+### Invalid Parameters
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "invalid_parameters",
+    "message": "Invalid parameters provided",
+    "details": "Width must be between 512 and 2048 pixels"
+  }
+}
+```
+
+### Insufficient Credits
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "insufficient_credits",
+    "message": "Insufficient credits for generation",
+    "details": "You need 1 credit but have 0 remaining"
+  }
+}
+```
+
+## Rate Limits
+
+This endpoint is subject to rate limiting based on your subscription plan. See the [Rate Limits](/api-reference/introduction#rate-limits) section for details.
+
+## Best Practices
+
+- Use descriptive and specific prompts for better results
+- Include style keywords (photorealistic, artistic, etc.)
+- Mention lighting conditions and composition
+- Add quality modifiers for professional results
+- Test with different models to find the best fit

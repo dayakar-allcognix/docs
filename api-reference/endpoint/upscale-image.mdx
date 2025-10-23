@@ -1,0 +1,185 @@
+---
+title: "Upscale Image"
+description: "Enhance and upscale image quality using AI"
+---
+
+## Overview
+
+The Image Upscaler endpoint allows you to enhance and upscale existing images using AI technology, improving quality, sharpness, and detail.
+
+## Endpoint
+
+```http
+POST /v1/generate/upscale
+```
+
+## Request Body
+
+<ParamField path="image_url" type="string" required>
+  URL of the image to upscale. Must be publicly accessible.
+</ParamField>
+
+<ParamField path="scale_factor" type="integer">
+  Scale factor for upscaling. Options: 2, 3, 4. Default: 2
+</ParamField>
+
+<ParamField path="enhancement_level" type="string">
+  Level of AI enhancement. Options: `subtle`, `balanced`, `strong`. Default: `balanced`
+</ParamField>
+
+<ParamField path="preserve_details" type="boolean">
+  Whether to preserve original image details. Default: true
+</ParamField>
+
+<ParamField path="output_format" type="string">
+  Output image format. Options: `jpg`, `png`, `webp`. Default: `jpg`
+</ParamField>
+
+## Example Request
+
+```bash
+curl -X POST https://api.omniphotostudio.com/v1/generate/upscale \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "image_url": "https://example.com/image.jpg",
+    "scale_factor": 2,
+    "enhancement_level": "balanced",
+    "preserve_details": true,
+    "output_format": "jpg"
+  }'
+```
+
+## Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Contains the upscaling results
+</ResponseField>
+
+<ResponseField name="data.image" type="object">
+  The upscaled image information
+</ResponseField>
+
+<ResponseField name="data.image.id" type="string">
+  Unique identifier for the upscaled image
+</ResponseField>
+
+<ResponseField name="data.image.url" type="string">
+  URL to download the upscaled image
+</ResponseField>
+
+<ResponseField name="data.image.original_width" type="integer">
+  Original image width
+</ResponseField>
+
+<ResponseField name="data.image.original_height" type="integer">
+  Original image height
+</ResponseField>
+
+<ResponseField name="data.image.upscaled_width" type="integer">
+  Upscaled image width
+</ResponseField>
+
+<ResponseField name="data.image.upscaled_height" type="integer">
+  Upscaled image height
+</ResponseField>
+
+<ResponseField name="data.image.scale_factor" type="integer">
+  Applied scale factor
+</ResponseField>
+
+<ResponseField name="data.image.format" type="string">
+  Output image format
+</ResponseField>
+
+<ResponseField name="data.usage" type="object">
+  Information about credits used
+</ResponseField>
+
+<ResponseField name="data.usage.credits_used" type="integer">
+  Number of credits consumed for this upscaling
+</ResponseField>
+
+## Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "image": {
+      "id": "upscale_123456789",
+      "url": "https://cdn.omniphotostudio.com/images/upscale_123456789.jpg",
+      "original_width": 512,
+      "original_height": 512,
+      "upscaled_width": 1024,
+      "upscaled_height": 1024,
+      "scale_factor": 2,
+      "format": "jpg"
+    },
+    "usage": {
+      "credits_used": 1
+    }
+  },
+  "meta": {
+    "request_id": "req_123456789",
+    "timestamp": "2024-01-01T00:00:00Z"
+  }
+}
+```
+
+## Error Responses
+
+### Invalid Image URL
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "invalid_image_url",
+    "message": "Invalid or inaccessible image URL",
+    "details": "The provided URL is not accessible or does not contain a valid image"
+  }
+}
+```
+
+### Unsupported Image Format
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "unsupported_format",
+    "message": "Unsupported image format",
+    "details": "Only JPG, PNG, and WebP formats are supported"
+  }
+}
+```
+
+### Image Too Large
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "image_too_large",
+    "message": "Image dimensions exceed maximum allowed size",
+    "details": "Maximum input image size is 2048x2048 pixels"
+  }
+}
+```
+
+## Rate Limits
+
+This endpoint is subject to rate limiting based on your subscription plan. See the [Rate Limits](/api-reference/introduction#rate-limits) section for details.
+
+## Best Practices
+
+- Use high-quality source images for best results
+- Choose appropriate scale factors based on intended use
+- Use subtle enhancement for natural-looking results
+- Consider output format based on use case
+- Test different enhancement levels to find optimal settings

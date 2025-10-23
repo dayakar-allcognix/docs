@@ -1,68 +1,83 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Omni Photo Studio",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6366F1",
+    "light": "#8B5CF6",
+    "dark": "#4F46E5"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "AI Image Generation Tools",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "ai-tools/text-to-image",
+              "ai-tools/image-to-image",
+              "ai-tools/sketch-to-image",
+              "ai-tools/inpainting",
+              "ai-tools/image-upscaler"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "User Management",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "user-management/account-system",
+              "user-management/profile-management"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Content Management",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "content-management/history",
+              "content-management/saved-images",
+              "content-management/explore"
+            ]
+          },
+          {
+            "group": "Analytics & Insights",
+            "pages": [
+              "analytics/usage-analytics"
+            ]
+          },
+          {
+            "group": "Use Cases",
+            "pages": [
+              "use-cases/creative-professionals",
+              "use-cases/business-applications",
+              "use-cases/educational-use",
+              "use-cases/personal-use"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API Reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "API Documentation",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Endpoints",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/generate-image",
+              "api-reference/endpoint/upscale-image",
+              "api-reference/endpoint/user-management",
+              "api-reference/endpoint/content-management"
             ]
           }
         ]
@@ -71,14 +86,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "Platform",
+          "href": "https://omniphotostudio.com",
+          "icon": "image"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Support",
+          "href": "mailto:support@allcognix.com",
+          "icon": "headset"
         }
       ]
     }
@@ -91,13 +106,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@allcognix.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Try Omni Photo Studio",
+      "href": "https://omniphotostudio.com"
     }
   },
   "contextual": {
@@ -114,9 +129,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/allcognix",
+      "github": "https://github.com/allcognix",
+      "linkedin": "https://linkedin.com/company/allcognix"
     }
   }
 }

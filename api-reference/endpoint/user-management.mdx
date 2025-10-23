@@ -1,0 +1,163 @@
+---
+title: "User Management"
+description: "Manage user accounts, profiles, and subscriptions"
+---
+
+## Overview
+
+The User Management endpoints allow you to manage user accounts, retrieve profile information, track usage statistics, and manage subscription details.
+
+## Get User Profile
+
+### Endpoint
+
+```http
+GET /v1/user/profile
+```
+
+### Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  User profile information
+</ResponseField>
+
+<ResponseField name="data.id" type="string">
+  Unique user identifier
+</ResponseField>
+
+<ResponseField name="data.email" type="string">
+  User's email address
+</ResponseField>
+
+<ResponseField name="data.username" type="string">
+  User's username
+</ResponseField>
+
+<ResponseField name="data.display_name" type="string">
+  User's display name
+</ResponseField>
+
+<ResponseField name="data.profile_picture" type="string">
+  URL to user's profile picture
+</ResponseField>
+
+<ResponseField name="data.created_at" type="string">
+  Account creation timestamp
+</ResponseField>
+
+<ResponseField name="data.last_login" type="string">
+  Last login timestamp
+</ResponseField>
+
+### Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "user_123456789",
+    "email": "user@example.com",
+    "username": "johndoe",
+    "display_name": "John Doe",
+    "profile_picture": "https://cdn.omniphotostudio.com/avatars/user_123456789.jpg",
+    "created_at": "2024-01-01T00:00:00Z",
+    "last_login": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+## Update User Profile
+
+### Endpoint
+
+```http
+PUT /v1/user/profile
+```
+
+### Request Body
+
+<ParamField path="display_name" type="string">
+  New display name
+</ParamField>
+
+<ParamField path="profile_picture" type="string">
+  URL to new profile picture
+</ParamField>
+
+<ParamField path="bio" type="string">
+  User bio/description
+</ParamField>
+
+## Get Usage Statistics
+
+### Endpoint
+
+```http
+GET /v1/user/usage
+```
+
+### Query Parameters
+
+<ParamField path="period" type="string">
+  Time period for usage data. Options: `day`, `week`, `month`, `year`. Default: `month`
+</ParamField>
+
+### Response
+
+<ResponseField name="data.usage" type="object">
+  Usage statistics
+</ResponseField>
+
+<ResponseField name="data.usage.total_generations" type="integer">
+  Total generations in the period
+</ResponseField>
+
+<ResponseField name="data.usage.credits_used" type="integer">
+  Credits consumed in the period
+</ResponseField>
+
+<ResponseField name="data.usage.credits_remaining" type="integer">
+  Credits remaining
+</ResponseField>
+
+<ResponseField name="data.usage.tool_breakdown" type="object">
+  Usage breakdown by AI tool
+</ResponseField>
+
+## Get Subscription Details
+
+### Endpoint
+
+```http
+GET /v1/user/subscription
+```
+
+### Response
+
+<ResponseField name="data.subscription" type="object">
+  Subscription information
+</ResponseField>
+
+<ResponseField name="data.subscription.plan" type="string">
+  Current subscription plan
+</ResponseField>
+
+<ResponseField name="data.subscription.status" type="string">
+  Subscription status (active, cancelled, expired)
+</ResponseField>
+
+<ResponseField name="data.subscription.billing_cycle" type="string">
+  Billing cycle (monthly, yearly)
+</ResponseField>
+
+<ResponseField name="data.subscription.next_billing_date" type="string">
+  Next billing date
+</ResponseField>
+
+<ResponseField name="data.subscription.features" type="array">
+  Available features for the current plan
+</ResponseField>
