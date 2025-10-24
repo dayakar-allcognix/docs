@@ -87,7 +87,7 @@
       "anchors": [
         {
           "anchor": "Platform",
-          "href": "https://omniphotostudio.com",
+          "href": "https://photos.allcognix.com",
           "icon": "image"
         },
         {
@@ -112,7 +112,7 @@
     "primary": {
       "type": "button",
       "label": "Try Omni Photo Studio",
-      "href": "https://omniphotostudio.com"
+      "href": "https://photos.allcognix.com"
     }
   },
   "contextual": {
